@@ -1,0 +1,28 @@
+{
+  "name": "im-to-agent",
+  "version": "0.1.0",
+  "description": "通过飞书等 IM 工具与电脑上的 Claude Code 或 Codex 交互",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.0",
+    "@larksuiteoapi/node-sdk": "^1.0.0",
+    "fast-xml-parser": "^4.5.0",
+    "node-cron": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

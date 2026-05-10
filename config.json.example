@@ -1,0 +1,45 @@
+{
+  "imPlatforms": ["feishu"],
+  "agent": {
+    "provider": "claude"
+  },
+  "projects": [
+    { "name": "myapp", "path": "/path/to/myapp" },
+    { "name": "backend", "path": "/path/to/backend" }
+  ],
+  "feishuBots": [
+    {
+      "name": "bot-a",
+      "appId": "cli_xxxxx",
+      "appSecret": "xxxxx",
+      "ownerOpenId": "ou_xxxxx",
+      "agent": "claude",
+      "projects": ["myapp", "backend"],
+      "defaultProject": "myapp"
+    },
+    {
+      "name": "bot-b",
+      "appId": "cli_yyyyy",
+      "appSecret": "yyyyy",
+      "agent": "codex",
+      "projects": ["backend"],
+      "defaultProject": "backend"
+    }
+  ],
+  "claude": {
+    "defaultProject": "myapp",
+    "permissionMode": "bypassPermissions",
+    "maxBudgetUsd": 5,
+    "sessionTimeoutMinutes": 30
+  },
+  "codex": {
+    "command": "codex",
+    "model": "gpt-5.3-codex",
+    "sandbox": "workspace-write",
+    "approvalPolicy": "never",
+    "fullAuto": false,
+    "dangerouslyBypassApprovalsAndSandbox": false,
+    "extraArgs": []
+  },
+  "logLevel": "info"
+}

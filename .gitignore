@@ -1,0 +1,9 @@
+node_modules/
+dist/
+logs/
+scripts/.service-runner.ps1
+.claude/settings.local.json
+config.json
+.env
+.env.*
+!.env.example
