@@ -76,12 +76,13 @@ npm run build && launchctl kickstart -k gui/$(id -u)/com.im-to-agent
 - `/projects` — 列出所有可用项目
 - `/project <name>` — 切换到指定项目（会重置当前会话）
 - `/reset` — 清除对话历史，开始新会话
+- `/stop` — 立即中断当前正在处理的任务
 - `/help` — 显示帮助信息
 
 ## 架构说明
 
 1. **IMAdapter 接口**: 抽象 IM 平台，便于扩展其他平台（如微信、Slack）
-2. **Bridge**: 连接 IM 和当前 Agent，处理命令（/reset, /help）和消息转发
+2. **Bridge**: 连接 IM 和当前 Agent，处理命令（/reset, /stop, /help）和消息转发
 3. **ClaudeSession**: 封装 Claude Agent SDK，支持会话恢复和流式输出
 4. **CodexSession**: 封装 Codex CLI，支持非交互执行和尽力恢复会话
 5. **AgentSessionManager**: 管理多会话，自动清理超时会话
