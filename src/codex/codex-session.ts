@@ -1,4 +1,5 @@
 import { spawn, type ChildProcess } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import { createInterface } from 'node:readline';
 import type { Config } from '../config.js';
 import { log } from '../logger.js';
@@ -39,6 +40,12 @@ export class CodexSession implements AgentSession {
 
   async *sendMessage(prompt: string): AsyncGenerator<QueryProgress> {
     this._lastActivityAt = Date.now();
+
+    const commandError = this.validateCommand();
+    if (commandError) {
+      yield { text: `[错误] ${commandError}`, done: true };
+      return;
+    }
 
     const args = this.buildArgs(prompt);
     log.debug('启动 Codex', { chatId: this.chatId, args: args.filter((a) => a !== prompt) });
@@ -149,6 +156,19 @@ export class CodexSession implements AgentSession {
     this.appendCodexCommonArgs(args, { includeWorkspace: true });
     args.push(prompt);
     return args;
+  }
+
+  private validateCommand(): string | null {
+    const command = this.codexConfig.command.trim();
+    if (!command) {
+      return 'codex.command 为空，请在 config.json 中配置 Codex 可执行文件';
+    }
+
+    if ((command.startsWith('/') || command.startsWith('.')) && !existsSync(command)) {
+      return `Codex 可执行文件不存在: ${command}`;
+    }
+
+    return null;
   }
 
   private appendCodexCommonArgs(args: string[], options: { includeWorkspace: boolean }) {

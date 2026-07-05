@@ -1,0 +1,11 @@
+#!/bin/zsh
+set -e
+
+matches=("$HOME"/.vscode/extensions/openai.chatgpt-*-darwin-*/bin/macos-aarch64/codex(N.om))
+
+if (( ${#matches[@]} == 0 )); then
+  echo "No VS Code OpenAI Codex binary found under $HOME/.vscode/extensions" >&2
+  exit 127
+fi
+
+exec "$matches[1]" "$@"
